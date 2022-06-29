@@ -1,14 +1,14 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import TrackList from "@/components/TrackList.vue";
 
-const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.deezer.com/chart/tracks';
+const apiUrl = 'https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks';
 const tracksApi = ref([]);
 
 const loadTracks = async () => {
   const response = await axios.get(apiUrl);
   tracksApi.value = response.data.data;
-  console.log(tracksApi);
 };
 
 loadTracks();
@@ -22,7 +22,7 @@ loadTracks();
       </div>
     </div>
     <div className="right-scene">
-      <!-- TODO code component <TrackList /> -->
+      <TrackList :tracks="tracksApi"/>
     </div>
   </div>
 </template>
