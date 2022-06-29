@@ -3,7 +3,7 @@ import axios from "axios";
 import { ref } from "vue";
 import TrackList from "@/components/TrackList.vue";
 
-const apiUrl = 'https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks';
+const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
 
 const loadTracks = async () => {
@@ -50,7 +50,7 @@ loadTracks();
 
 .right-scene {
   flex: 0 0 40%;
-  background-color: #ecf0f1;
+  background-color: white;
   overflow: scroll;
 }
 .track-list {

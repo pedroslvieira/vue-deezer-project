@@ -1,5 +1,5 @@
 <script setup>
-// TODO import Track component
+import TrackListElement from "@/components/TrackListElement.vue";
 
 defineProps({
   tracks: {
@@ -12,7 +12,7 @@ defineProps({
 <template>
   <div v-if="tracks">
     <div v-for="track in tracks">
-      <!-- TODO code component <Track :track="track" /> -->
+      <TrackListElement :track="track" />
     </div>
   </div>
 </template>
