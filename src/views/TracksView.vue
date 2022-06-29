@@ -1,3 +1,19 @@
+<script setup>
+import axios from "axios";
+import { ref } from "vue";
+
+const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.deezer.com/chart/tracks';
+const tracksApi = ref([]);
+
+const loadTracks = async () => {
+  const response = await axios.get(apiUrl);
+  tracksApi.value = response.data.data;
+  console.log(tracksApi);
+};
+
+loadTracks();
+</script>
+
 <template>
   <div id="root">
     <div class="left-scene">
