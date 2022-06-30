@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import TrackList from "@/components/TrackList.vue";
+import SelectedTrack from "@/components/SelectedTrack.vue";
 
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
@@ -12,17 +13,18 @@ const loadTracks = async () => {
 };
 
 loadTracks();
+const selectedTrack = tracksApi.value[0];
 </script>
 
 <template>
   <div id="root">
     <div class="left-scene">
       <div class="selected-track">
-        <!-- TODO code component <SelectedTrack /> -->
+        <SelectedTrack :selectedTrack="selectedTrack" />
       </div>
     </div>
     <div className="right-scene">
-      <TrackList :tracks="tracksApi"/>
+      <TrackList :tracks="tracksApi" />
     </div>
   </div>
 </template>
