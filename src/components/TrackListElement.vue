@@ -1,14 +1,21 @@
 <script setup>
+import { ref } from "vue";
 defineProps({
   track: {
     type: Object,
     required: true,
   },
 });
+
+const isActive = ref(false);
+
+const activate = () => {
+  isActive.value = !isActive.value;
+};
 </script>
 
 <template>
-  <div class="list-element">
+  <div class="list-element" @click="activate">
     <div class="track-cover">
       <img class="cover" :src="track.album.cover_small" />
     </div>
@@ -29,6 +36,10 @@ defineProps({
 .list-element:hover {
   background-color: #ededed;
   cursor: pointer;
+}
+
+.active {
+  background-color: lightgray;
 }
 
 .track-cover {
