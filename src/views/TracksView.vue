@@ -2,7 +2,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import TrackList from "@/components/TrackList.vue";
-import SelectedTrack from "@/components/SelectedTrack.vue";
 
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
@@ -17,18 +16,26 @@ const loadTracks = () => {
     tracksApi.value = response.data.data;
   });
 };
-
 loadTracks();
 
 const selectedTrack = ref({});
 selectedTrack.value = tracksApi.value[0];
 
-const updateTrack = (track) => {
-  selectedTrack.value = track;
-  console.log(selectedTrack.value);
+const isPlaying = ref(false);
+const player = new Audio();
+
+const play = () => {
+  player.src = selectedTrack.value.preview;
+  player.play();
+  isPlaying.value = true;
 };
 
-const goToNextTrack = (track) => {
+const pause = () => {
+  player.pause();
+  isPlaying.value = false;
+};
+
+const nextTrack = (track) => {
   let index = tracksApi.value.indexOf(track);
   index++;
   if (index > tracksApi.value.length - 1) {
@@ -36,6 +43,29 @@ const goToNextTrack = (track) => {
   } else {
     selectedTrack.value = tracksApi.value[index];
   }
+  player.src = selectedTrack.value.preview;
+  player.play();
+  isPlaying.value = true;
+};
+
+const prevTrack = (track) => {
+  let index = tracksApi.value.indexOf(track);
+  index--;
+  if (index < 0) {
+    selectedTrack.value = tracksApi.value[9];
+  } else {
+    selectedTrack.value = tracksApi.value[index];
+  }
+  player.src = selectedTrack.value.preview;
+  player.play();
+  isPlaying.value = true;
+};
+
+const updateTrack = (track) => {
+  selectedTrack.value = track;
+  player.src = selectedTrack.value.preview;
+  player.play();
+  isPlaying.value = true;
 };
 </script>
 
@@ -43,7 +73,35 @@ const goToNextTrack = (track) => {
   <div id="root">
     <div class="left-scene">
       <div class="selected-track">
-        <SelectedTrack :selectedTrack="selectedTrack" @next-track="goToNextTrack" />
+        <!-- <SelectedTrack :selectedTrack="selectedTrack" @next-track="goToNextTrack" /> -->
+        <div v-if="!selectedTrack">
+          <h1>select a song to play</h1>
+        </div>
+        <div class="player" v-else>
+          <div class="cover-wrapper">
+            <img :src="selectedTrack.album.cover_medium" />
+          </div>
+          <div class="track-details">
+            <h2 class="track-title">
+              {{ selectedTrack.title }}
+            </h2>
+            <p class="artist">{{ selectedTrack.artist.name }}</p>
+          </div>
+          <div class="commands">
+            <button class="prev" @click="prevTrack(selectedTrack)">
+              <font-awesome-icon icon="step-backward" />
+            </button>
+            <button class="play" v-if="!isPlaying" @click="play">
+              <font-awesome-icon icon="play" />
+            </button>
+            <button class="pause" v-else @click="pause">
+              <font-awesome-icon icon="pause" />
+            </button>
+            <button class="next" @click="nextTrack(selectedTrack)">
+              <font-awesome-icon icon="step-forward" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div className="right-scene">
@@ -99,5 +157,69 @@ const goToNextTrack = (track) => {
     display: flex;
     align-items: center;
   }
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.track-details{
+  margin-top: 5px;
+}
+
+.track-title,
+.artist {
+  text-align: center;
+}
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.commands {
+  display: flex;
+  margin-top: 25px;
+}
+.play,
+.pause {
+  background-image: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 25px;
+  color: #fff;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.next,
+.prev {
+  border: 0;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(0,0,0,.09);
+  color: #fff;
+  transition: background-color .2s;
+  position: relative;
 }
 </style>
