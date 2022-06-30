@@ -1,9 +1,13 @@
 <script setup>
+import { ref } from "vue";
+
 defineProps({
   selectedTrack: {
     type: Object,
   },
 });
+
+const isPlaying = ref(false);
 </script>
 
 <template>
@@ -20,18 +24,20 @@ defineProps({
       </h2>
       <p class="artist">{{ selectedTrack.artist.name }}</p>
     </div>
-    <button class="prev">
-      <font-awesome-icon icon="step-forward" />
-    </button>
-    <button class="prev">
-      <font-awesome-icon icon="play" />
-    </button>
-    <button class="prev">
-      <font-awesome-icon icon="pause" />
-    </button>
-    <button class="prev">
-      <font-awesome-icon icon="step-backward" />
-    </button>
+    <div class="commands">
+      <button class="prev">
+        <font-awesome-icon icon="step-backward" />
+      </button>
+      <button class="play" v-if="isPlaying">
+        <font-awesome-icon icon="play" />
+      </button>
+      <button class="pause" v-else>
+        <font-awesome-icon icon="pause" />
+      </button>
+      <button class="next">
+        <font-awesome-icon icon="step-forward" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -43,8 +49,61 @@ defineProps({
   margin: auto;
 }
 
+.track-details{
+  margin-top: 5px;
+}
+
 .track-title,
 .artist {
   text-align: center;
 }
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.commands {
+  display: flex;
+  margin-top: 25px;
+}
+.play,
+.pause {
+  background-image: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 25px;
+  color: #fff;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.next,
+.prev {
+  border: 0;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(0,0,0,.09);
+  color: #fff;
+  transition: background-color .2s;
+  position: relative;
+};
+
 </style>

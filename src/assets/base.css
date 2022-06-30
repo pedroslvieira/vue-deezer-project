@@ -1,4 +1,6 @@
 /* color palette from <https://github.com/vuejs/theme> */
+@import './animations.css';
+
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -71,4 +73,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(223,131,241);
+  background: linear-gradient(90deg, rgba(223,131,241,1) 0%, rgba(130,39,159,1) 35%, rgba(83,207,224,1) 100%);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }

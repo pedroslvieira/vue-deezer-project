@@ -28,6 +28,7 @@ defineProps({
 }
 .list-element:hover {
   background-color: #ededed;
+  cursor: pointer;
 }
 
 .track-cover {
