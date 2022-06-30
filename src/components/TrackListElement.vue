@@ -19,11 +19,14 @@ const activate = () => {
     <div class="track-cover">
       <img class="cover" :src="track.album.cover_small" />
     </div>
-    <div class="track-details">
-      <h2 class="track-title">
-        {{ track.title.substring(0,50) + ".." }}
+    <div class="list-track-details">
+      <h2 class="list-track-title" v-if="track.title.length > 40">
+          {{ track.title.substring(0, 40) + ".." }}
       </h2>
-      <p class="track-artist">{{ track.artist.name }}</p>
+      <h2 class="list-track-title" v-else>
+        {{ track.title }}
+      </h2>
+      <p class="list-track-artist">{{ track.artist.name }}</p>
     </div>
   </div>
 </template>
@@ -46,21 +49,21 @@ const activate = () => {
   margin: 5px;
 }
 
-.track-details {
+.list-track-details {
   margin-left: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.track-title {
+.list-track-title {
   color: #53565a;
   font-size: medium;
   font-weight: 600;
   text-align: left;
 }
 
-.track-artist {
+.list-track-artist {
   font-weight: 400;
   text-align: left;
 }

@@ -119,8 +119,8 @@ const updateTrack = (track) => {
 <style>
 #root {
   display: flex;
-  height: calc(100vh - 100px)
-  /* height: 500px; */
+  height: calc(100vh - 100px);
+  width: 800px;
 }
 
 .welcome {
@@ -139,6 +139,7 @@ const updateTrack = (track) => {
   width: 200px;
   font-weight: 300;
   margin-top: 15px;
+  font-size: 16px;
 }
 
 .left-scene {
@@ -195,7 +196,12 @@ const updateTrack = (track) => {
   width: 300px;
 }
 
-.track-title,
+.track-title {
+  color: #53565a;
+  font-size: medium;
+  font-weight: 600;
+}
+
 .artist {
   text-align: center;
 }
