@@ -3,7 +3,15 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <RouterView />
+  <router-view v-slot="{ Component, route }">
+    <transition
+      :enter-active-class="route.meta.enterClass"
+      :leave-active-class="route.meta.leaveClass"
+      mode="out-in"
+    >
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <style>
@@ -21,6 +29,15 @@ header {
   max-height: 100vh;
 }
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
 .logo {
   display: block;
   margin: 0 auto 2rem;
