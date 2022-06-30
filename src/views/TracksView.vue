@@ -79,9 +79,9 @@ const updateTrack = (track) => {
   <div id="root">
     <div class="left-scene">
       <div class="selected-track">
-        <!-- <SelectedTrack :selectedTrack="selectedTrack" @next-track="goToNextTrack" /> -->
-        <div v-if="!selectedTrack">
-          <h1>select a song to play</h1>
+        <div v-if="!selectedTrack" class="welcome">
+          <h1 class="welcome-title">Welcome!</h1>
+          <p class="welcome-p">Choose a song on the list to start listening</p>
         </div>
         <div class="player" v-else>
           <div class="cover-wrapper">
@@ -121,6 +121,24 @@ const updateTrack = (track) => {
   display: flex;
   height: calc(100vh - 100px)
   /* height: 500px; */
+}
+
+.welcome {
+  width: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-title {
+  font-weight: 200;
+}
+
+.welcome-p {
+  width: 200px;
+  font-weight: 300;
+  margin-top: 15px;
 }
 
 .left-scene {
@@ -172,8 +190,9 @@ const updateTrack = (track) => {
   margin: auto;
 }
 
-.track-details{
+.track-details {
   margin-top: 5px;
+  width: 300px;
 }
 
 .track-title,
