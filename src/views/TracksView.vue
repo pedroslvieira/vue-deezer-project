@@ -7,13 +7,27 @@ import SelectedTrack from "@/components/SelectedTrack.vue";
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
 
-const loadTracks = async () => {
-  const response = await axios.get(apiUrl);
-  tracksApi.value = response.data.data;
+// const loadTracks = async () => {
+//   const response = await axios.get(apiUrl);
+//   tracksApi.value = response.data.data;
+// };
+
+const loadTracks = () => {
+  // const response = [];
+  axios.get(apiUrl).then((response) => {
+    tracksApi.value = response.data.data;
+  });
 };
 
 loadTracks();
-const selectedTrack = tracksApi.value[0];
+
+const selectedTrack = ref({});
+selectedTrack.value = tracksApi.value[0];
+
+const updateTrack = (track) => {
+  selectedTrack.value = track;
+  console.log(selectedTrack.value);
+};
 </script>
 
 <template>
@@ -24,7 +38,7 @@ const selectedTrack = tracksApi.value[0];
       </div>
     </div>
     <div className="right-scene">
-      <TrackList :tracks="tracksApi" />
+      <TrackList :tracks="tracksApi" @track-selected="updateTrack" />
     </div>
   </div>
 </template>
