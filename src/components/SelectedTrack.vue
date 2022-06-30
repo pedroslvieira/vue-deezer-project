@@ -20,6 +20,18 @@ defineProps({
       </h2>
       <p class="artist">{{ selectedTrack.artist.name }}</p>
     </div>
+    <button class="prev">
+      <font-awesome-icon icon="step-forward" />
+    </button>
+    <button class="prev">
+      <font-awesome-icon icon="play" />
+    </button>
+    <button class="prev">
+      <font-awesome-icon icon="pause" />
+    </button>
+    <button class="prev">
+      <font-awesome-icon icon="step-backward" />
+    </button>
   </div>
 </template>
 
