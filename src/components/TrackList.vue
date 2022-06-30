@@ -1,7 +1,7 @@
 <script setup>
 import TrackListElement from "@/components/TrackListElement.vue";
 
-const props = defineProps({
+defineProps({
   tracks: {
     type: Array,
     required: true,
@@ -9,15 +9,11 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["trackSelected"]);
-
-const selectThisTrack = (track) => {
-  emit("trackSelected", track);
-};
 </script>
 
 <template>
   <div v-if="tracks">
-    <div v-for="track in tracks" :key="track.position" class="song" @click="selectThisTrack(track)">
+    <div v-for="track in tracks" :key="track.position" class="song" @click="emit('trackSelected', track)">
       <TrackListElement :track="track" />
     </div>
   </div>

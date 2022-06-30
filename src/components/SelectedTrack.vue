@@ -1,13 +1,27 @@
 <script setup>
 import { ref } from "vue";
 
-defineProps({
+const props = defineProps({
   selectedTrack: {
     type: Object,
   },
 });
 
+const emit = defineEmits(["nextTrack"]);
+
 const isPlaying = ref(false);
+const player = new Audio();
+
+const play = () => {
+  player.src = props.selectedTrack.preview;
+  player.play();
+  isPlaying.value = true;
+};
+
+const pause = () => {
+  player.pause();
+  isPlaying.value = false;
+};
 </script>
 
 <template>
@@ -28,13 +42,13 @@ const isPlaying = ref(false);
       <button class="prev">
         <font-awesome-icon icon="step-backward" />
       </button>
-      <button class="play" v-if="isPlaying">
+      <button class="play" v-if="!isPlaying" @click="play">
         <font-awesome-icon icon="play" />
       </button>
-      <button class="pause" v-else>
+      <button class="pause" v-else @click="pause">
         <font-awesome-icon icon="pause" />
       </button>
-      <button class="next">
+      <button class="next" @click="emit('nextTrack', selectedTrack)">
         <font-awesome-icon icon="step-forward" />
       </button>
     </div>

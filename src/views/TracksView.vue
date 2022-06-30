@@ -13,7 +13,6 @@ const tracksApi = ref([]);
 // };
 
 const loadTracks = () => {
-  // const response = [];
   axios.get(apiUrl).then((response) => {
     tracksApi.value = response.data.data;
   });
@@ -28,13 +27,23 @@ const updateTrack = (track) => {
   selectedTrack.value = track;
   console.log(selectedTrack.value);
 };
+
+const goToNextTrack = (track) => {
+  let index = tracksApi.value.indexOf(track);
+  index++;
+  if (index > tracksApi.value.length - 1) {
+    selectedTrack.value = tracksApi.value[0];
+  } else {
+    selectedTrack.value = tracksApi.value[index];
+  }
+};
 </script>
 
 <template>
   <div id="root">
     <div class="left-scene">
       <div class="selected-track">
-        <SelectedTrack :selectedTrack="selectedTrack" />
+        <SelectedTrack :selectedTrack="selectedTrack" @next-track="goToNextTrack" />
       </div>
     </div>
     <div className="right-scene">
