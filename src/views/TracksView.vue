@@ -44,8 +44,10 @@ const nextTrack = (track) => {
     selectedTrack.value = tracksApi.value[index];
   }
   player.src = selectedTrack.value.preview;
-  player.play();
-  isPlaying.value = true;
+  if (isPlaying.value == true) {
+    player.play();
+    isPlaying.value = true;
+  }
 };
 
 const prevTrack = (track) => {
@@ -57,15 +59,19 @@ const prevTrack = (track) => {
     selectedTrack.value = tracksApi.value[index];
   }
   player.src = selectedTrack.value.preview;
-  player.play();
-  isPlaying.value = true;
+  if (isPlaying.value == true) {
+    player.play();
+    isPlaying.value = true;
+  }
 };
 
 const updateTrack = (track) => {
   selectedTrack.value = track;
   player.src = selectedTrack.value.preview;
-  player.play();
-  isPlaying.value = true;
+  if (isPlaying.value == true) {
+    player.play();
+    isPlaying.value = true;
+  }
 };
 </script>
 
