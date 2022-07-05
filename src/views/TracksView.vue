@@ -5,15 +5,15 @@ import TrackList from "@/components/TrackList.vue";
 
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
+const selectedTrack = ref({});
 
 const loadTracks = async () => {
   const response = await axios.get(apiUrl);
   tracksApi.value = response.data.data;
+  // selectedTrack.value = tracksApi.value[0];
+  console.log(tracksApi);
 };
 loadTracks();
-
-const selectedTrack = ref({});
-selectedTrack.value = tracksApi.value[0];
 
 const isPlaying = ref(false);
 const player = new Audio();
@@ -30,8 +30,11 @@ const pause = () => {
 };
 
 const nextTrack = (track) => {
+  console.log("hello");
   let index = tracksApi.value.indexOf(track);
+  console.log(index);
   index++;
+  console.log(index);
   if (index > tracksApi.value.length - 1) {
     selectedTrack.value = tracksApi.value[0];
   } else {
@@ -67,13 +70,17 @@ const updateTrack = (track) => {
     isPlaying.value = true;
   }
 };
+
+player.addEventListener("ended", function () {
+  nextTrack(selectedTrack.value);
+});
 </script>
 
 <template>
   <div id="root">
     <div class="left-scene">
       <div class="selected-track">
-        <div v-if="!selectedTrack" class="welcome">
+        <div v-if="!selectedTrack.title" class="welcome">
           <h1 class="welcome-title">Welcome!</h1>
           <p class="welcome-p">Choose a song on the list to start listening</p>
         </div>
