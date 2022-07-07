@@ -23,34 +23,11 @@ const loadTracks = async () => {
 };
 loadTracks();
 
-// const loadTracks = () => {
-//   setTimeout(() => {
-//     const response = axios.get(apiUrl);
-//     console.log(response.PromiseResult);
-//     tracksApi.value = response.data.data;
-//     console.log("loading songs...");
-//   }, 2000);
-// };
-// loadTracks();
-
-// const loadTracks = async () => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(() => {
-//         const response = axios.get(apiUrl);
-//         tracksApi.value = response.data.data;
-//         console.log("loaded");
-//       });
-//     }, 2000);
-//   });
-// };
-// loadTracks();
-
 const isPlaying = ref(false);
 const player = new Audio();
 
 const play = () => {
-  player.src = selectedTrack.value.preview;
+  // player.src = selectedTrack.value.preview;
   player.play();
   isPlaying.value = true;
 };
@@ -63,9 +40,7 @@ const pause = () => {
 const nextTrack = (track) => {
   console.log("hello");
   let index = tracksApi.value.indexOf(track);
-  console.log(index);
   index++;
-  console.log(index);
   if (index > tracksApi.value.length - 1) {
     selectedTrack.value = tracksApi.value[0];
   } else {
@@ -102,7 +77,7 @@ const updateTrack = (track) => {
   }
 };
 
-player.addEventListener("ended", function () {
+player.addEventListener("ended", () => {
   nextTrack(selectedTrack.value);
 });
 </script>
