@@ -7,13 +7,44 @@ const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks
 const tracksApi = ref([]);
 const selectedTrack = ref({});
 
+// const response = await axios.get(apiUrl);
+// tracksApi.value = response.data.data;
+
+const componentKey = ref(0);
+
+const reloadComponent = () => {
+  componentKey.value += 1;
+}
+
 const loadTracks = async () => {
   const response = await axios.get(apiUrl);
   tracksApi.value = response.data.data;
-  // selectedTrack.value = tracksApi.value[0];
-  console.log(tracksApi);
+  reloadComponent();
 };
 loadTracks();
+
+// const loadTracks = () => {
+//   setTimeout(() => {
+//     const response = axios.get(apiUrl);
+//     console.log(response.PromiseResult);
+//     tracksApi.value = response.data.data;
+//     console.log("loading songs...");
+//   }, 2000);
+// };
+// loadTracks();
+
+// const loadTracks = async () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(() => {
+//         const response = axios.get(apiUrl);
+//         tracksApi.value = response.data.data;
+//         console.log("loaded");
+//       });
+//     }, 2000);
+//   });
+// };
+// loadTracks();
 
 const isPlaying = ref(false);
 const player = new Audio();
@@ -112,7 +143,12 @@ player.addEventListener("ended", function () {
       </div>
     </div>
     <div className="right-scene">
-      <TrackList :tracks="tracksApi" @track-selected="updateTrack" />
+      <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
+      <TrackList
+        :tracks="tracksApi"
+        @track-selected="updateTrack"
+        :key="componentKey"
+      />
     </div>
   </div>
 </template>
@@ -175,6 +211,16 @@ player.addEventListener("ended", function () {
   width: 100%;
   margin: 5px;
   cursor: pointer;
+}
+
+#loading {
+  height: 100px;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+}
+.bg-track-list {
+  background-color: white;
 }
 
 @media (min-width: 1024px) {
