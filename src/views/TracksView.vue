@@ -69,7 +69,9 @@ const prevTrack = (track) => {
 };
 
 const updateTrack = (track) => {
+  selectedTrack.value.explicit_lyrics = false;
   selectedTrack.value = track;
+  track.explicit_lyrics = true;
   player.src = selectedTrack.value.preview;
   if (isPlaying.value == true) {
     player.play();
