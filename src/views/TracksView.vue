@@ -38,7 +38,7 @@ const pause = () => {
 };
 
 const nextTrack = (track) => {
-  console.log("hello");
+  selectedTrack.value.explicit_lyrics = false;
   let index = tracksApi.value.indexOf(track);
   index++;
   if (index > tracksApi.value.length - 1) {
@@ -47,6 +47,7 @@ const nextTrack = (track) => {
     selectedTrack.value = tracksApi.value[index];
   }
   player.src = selectedTrack.value.preview;
+  selectedTrack.value.explicit_lyrics = true;
   if (isPlaying.value == true) {
     player.play();
     isPlaying.value = true;
@@ -54,6 +55,7 @@ const nextTrack = (track) => {
 };
 
 const prevTrack = (track) => {
+  selectedTrack.value.explicit_lyrics = false;
   let index = tracksApi.value.indexOf(track);
   index--;
   if (index < 0) {
@@ -62,6 +64,7 @@ const prevTrack = (track) => {
     selectedTrack.value = tracksApi.value[index];
   }
   player.src = selectedTrack.value.preview;
+  selectedTrack.value.explicit_lyrics = true;
   if (isPlaying.value == true) {
     player.play();
     isPlaying.value = true;
