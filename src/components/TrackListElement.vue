@@ -21,7 +21,7 @@ const activate = () => {
     </div>
     <div class="list-track-details">
       <h2 class="list-track-title" v-if="track.title.length > 40">
-          {{ track.title.substring(0, 40) + ".." }}
+        {{ track.title.substring(0, 40) + ".." }}
       </h2>
       <h2 class="list-track-title" v-else>
         {{ track.title }}

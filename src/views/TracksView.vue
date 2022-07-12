@@ -27,7 +27,6 @@ const isPlaying = ref(false);
 const player = new Audio();
 
 const play = () => {
-  // player.src = selectedTrack.value.preview;
   player.play();
   isPlaying.value = true;
 };
@@ -74,7 +73,7 @@ const prevTrack = (track) => {
 const updateTrack = (track) => {
   selectedTrack.value.explicit_lyrics = false;
   selectedTrack.value = track;
-  track.explicit_lyrics = true;
+  selectedTrack.value.explicit_lyrics = true;
   player.src = selectedTrack.value.preview;
   if (isPlaying.value == true) {
     player.play();
