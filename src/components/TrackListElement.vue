@@ -20,12 +20,12 @@ const activate = () => {
       <img class="cover" :src="track.album.cover_small" />
     </div>
     <div class="list-track-details">
-      <h2 class="list-track-title" v-if="track.title.length > 40">
-        {{ track.title.substring(0, 40) + ".." }}
-      </h2>
-      <h2 class="list-track-title" v-else>
-        {{ track.title }}
-      </h2>
+      <div class="list-track-long-title" v-if="track.title.length > 20">
+        <span class="span animate">{{ track.title }}</span>
+      </div>
+      <div class="list-track-title" v-else>
+        <span class="span">{{ track.title }}</span>
+      </div>
       <p class="list-track-artist">{{ track.artist.name }}</p>
     </div>
   </div>
@@ -51,16 +51,50 @@ const activate = () => {
 
 .list-track-details {
   margin-left: 5px;
+  width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+.list-track-long-title {
+  height: 25px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
 .list-track-title {
+  height: 25px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.animate {
+  position: relative;
+  animation: leftright 3s infinite alternate ease-in-out;
+}
+
+@keyframes leftright {
+  0%,
+  10% {
+    transform: translateX(0%);
+    left: 0%;
+  }
+  90%,
+  100% {
+    transform: translateX(-100%);
+    left: 100%;
+  }
+}
+
+.span {
+  font-weight: 600;
+  display: inline-block;
+  text-align: left;
   color: #53565a;
   font-size: medium;
-  font-weight: 600;
-  text-align: left;
 }
 
 .list-track-artist {

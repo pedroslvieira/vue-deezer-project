@@ -100,7 +100,7 @@ player.addEventListener("ended", () => {
           </div>
           <div class="track-details">
             <h2 class="track-title">
-              {{ selectedTrack.title }}
+              {{ selectedTrack.value.title }}
             </h2>
             <p class="artist">{{ selectedTrack.artist.name }}</p>
           </div>
