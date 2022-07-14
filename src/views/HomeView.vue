@@ -1,22 +1,43 @@
+<script setup>
+import { ref } from 'vue';
+const windowWidth = ref();
+const mobile = ref(false);
+
+const checkScreen = () => {
+  windowWidth.value = window.innerWidth;
+  if (windowWidth.value < 750) {
+    mobile.value = true;
+    return;
+  }
+  mobile.value = false;
+  return;
+};
+checkScreen();
+
+window.addEventListener("resize", checkScreen);
+</script>
+
 <template>
-  <div class="form-div">
-    <div class="form-title">
-      <h1>Sign-up</h1>
-    </div>
-    <form class="form" action="">
-      <!-- <label for="first-name">First Name </label> -->
-      <input name="first-name" type="text" placeholder=" John" />
-      <br />
-      <!-- <label for="last-name">Last Name </label> -->
-      <input name="last-name" type="text" placeholder=" Doe" />
-      <br />
-      <!-- <label for="email">Email </label> -->
-      <input name="email" type="text" placeholder=" johndoe@gmail.com" />
-      <br />
-      <!-- <label for="password">Password </label> -->
-      <input name="password" type="text" placeholder=" ***********" />
-    </form>
-    <Router-Link class="tracks-button" to="/tracks"> Submit </Router-Link>
+  <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
+    <div class="form-div">
+      <div class="form-title">
+        <h1>Sign-up</h1>
+      </div>
+      <form class="form" action="">
+        <!-- <label for="first-name">First Name </label> -->
+        <input name="first-name" type="text" placeholder=" John" />
+        <br />
+        <!-- <label for="last-name">Last Name </label> -->
+        <input name="last-name" type="text" placeholder=" Doe" />
+        <br />
+        <!-- <label for="email">Email </label> -->
+        <input name="email" type="text" placeholder=" johndoe@gmail.com" />
+        <br />
+        <!-- <label for="password">Password </label> -->
+        <input name="password" type="text" placeholder=" ***********" />
+      </form>
+      <Router-Link class="tracks-button" to="/tracks"> Submit </Router-Link>
+      </div>
   </div>
 </template>
 

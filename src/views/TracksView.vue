@@ -136,6 +136,28 @@ player.addEventListener("ended", () => {
         </div>
       </div>
     </div>
+    <div class="player-mobile" v-if="mobile && selectedTrack.title">
+      <div class="track-mobile-cover">
+            <img class="mobile-cover" :src="selectedTrack.album.cover_small" />
+      </div>
+      <div class="list-track-details">
+        <h2 class="list-track-title" v-if="selectedTrack.title.length > 20">
+          {{ selectedTrack.title.substring(0, 20) + ".." }}
+        </h2>
+        <h2 class="list-track-title" v-else>
+          {{ selectedTrack.title }}
+        </h2>
+        <p class="list-track-artist">{{ selectedTrack.artist.name }}</p>
+      </div>
+      <div class="mobile-commands">
+        <button class="mobile-play" v-if="!isPlaying" @click="play">
+          <font-awesome-icon icon="play" />
+        </button>
+        <button class="mobile-pause" v-else @click="pause">
+          <font-awesome-icon icon="pause" />
+        </button>
+      </div>
+    </div>
     <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile }">
       <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
       <TrackList
@@ -158,6 +180,7 @@ player.addEventListener("ended", () => {
 }
 
 .root-mobile {
+  flex-direction: column-reverse;
   height: calc(100vh - 100px);
   width: 350px;
 }
@@ -202,13 +225,39 @@ player.addEventListener("ended", () => {
   overflow-x: hidden;
 }
 
-.right-scene-big-screen {
-  flex: 0 0 40%;
+.player-mobile {
+  flex: 0 0 15%;
+  background-color: rgba(255,255,255,1);
+  border-top: solid 1px lightgray;
+  display: flex;
+  padding: 10px;
+  align-items: center;
 }
 
-.right-scene-mobile {
-  flex: 0 0 100%;
+.track-mobile-cover {
+  height: 56px;
+  margin: 5px;
 }
+
+.mobile-cover {
+  border-radius: 5px;
+}
+
+.mobile-commands {
+  margin-left: auto;
+}
+
+.mobile-play,
+.mobile-pause {
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 30px;
+  color: #000;
+  margin: 0;
+}
+
 
 .track-list {
   column-count: 1;
@@ -230,14 +279,6 @@ player.addEventListener("ended", () => {
 }
 .bg-track-list {
   background-color: white;
-}
-
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
 }
 
 .player {
