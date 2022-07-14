@@ -86,7 +86,7 @@ const mobile = ref(true);
 
 const checkScreen = () => {
   windowWidth.value = window.innerWidth;
-  if (windowWidth.value < 750) {
+  if (windowWidth.value < 800) {
     mobile.value = true;
     return;
   }
@@ -136,28 +136,30 @@ player.addEventListener("ended", () => {
         </div>
       </div>
     </div>
-    <div class="player-mobile" v-if="mobile && selectedTrack.title">
-      <div class="track-mobile-cover">
-            <img class="mobile-cover" :src="selectedTrack.album.cover_small" />
+    <transition :duration="{ enter: 10000, leave: 3500 }" name="fade">
+      <div class="player-mobile" v-if="mobile && selectedTrack.title">
+        <div class="track-mobile-cover">
+              <img class="mobile-cover" :src="selectedTrack.album.cover_small" />
+        </div>
+        <div class="list-track-details">
+          <h2 class="list-track-title" v-if="selectedTrack.title.length > 20">
+            {{ selectedTrack.title.substring(0, 20) + ".." }}
+          </h2>
+          <h2 class="list-track-title" v-else>
+            {{ selectedTrack.title }}
+          </h2>
+          <p class="list-track-artist">{{ selectedTrack.artist.name }}</p>
+        </div>
+        <div class="mobile-commands">
+          <button class="mobile-play" v-if="!isPlaying" @click="play">
+            <font-awesome-icon icon="play" />
+          </button>
+          <button class="mobile-pause" v-else @click="pause">
+            <font-awesome-icon icon="pause" />
+          </button>
+        </div>
       </div>
-      <div class="list-track-details">
-        <h2 class="list-track-title" v-if="selectedTrack.title.length > 20">
-          {{ selectedTrack.title.substring(0, 20) + ".." }}
-        </h2>
-        <h2 class="list-track-title" v-else>
-          {{ selectedTrack.title }}
-        </h2>
-        <p class="list-track-artist">{{ selectedTrack.artist.name }}</p>
-      </div>
-      <div class="mobile-commands">
-        <button class="mobile-play" v-if="!isPlaying" @click="play">
-          <font-awesome-icon icon="play" />
-        </button>
-        <button class="mobile-pause" v-else @click="pause">
-          <font-awesome-icon icon="pause" />
-        </button>
-      </div>
-    </div>
+    </transition>
     <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile }">
       <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
       <TrackList
@@ -170,19 +172,28 @@ player.addEventListener("ended", () => {
 </template>
 
 <style>
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateY(300px);
+  opacity: 1;
+}
+
 #root {
   display: flex;
+  position: relative;
 }
 
 .root-big-screen {
   height: 550px;
   width: 750px;
+  transition: 0.5s ease all;
 }
 
 .root-mobile {
   flex-direction: column-reverse;
   height: calc(100vh - 100px);
   width: 350px;
+  transition: 0.5s ease all;
 }
 
 .welcome {
@@ -225,13 +236,26 @@ player.addEventListener("ended", () => {
   overflow-x: hidden;
 }
 
+.right-scene-big-screen {
+  flex: 0 0 40%;
+}
+
+.right-scene-mobile {
+  flex: 0 0 100%;
+}
+
 .player-mobile {
   flex: 0 0 15%;
   background-color: rgba(255,255,255,1);
+  /* background-color: #3A4859; */
   border-top: solid 1px lightgray;
   display: flex;
   padding: 10px;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
 }
 
 .track-mobile-cover {

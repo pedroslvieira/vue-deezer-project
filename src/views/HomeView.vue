@@ -5,7 +5,7 @@ const mobile = ref(false);
 
 const checkScreen = () => {
   windowWidth.value = window.innerWidth;
-  if (windowWidth.value < 750) {
+  if (windowWidth.value < 800) {
     mobile.value = true;
     return;
   }
