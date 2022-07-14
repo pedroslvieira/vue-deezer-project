@@ -93,6 +93,7 @@ const checkScreen = () => {
   mobile.value = false;
   return;
 };
+checkScreen();
 
 window.addEventListener("resize", checkScreen);
 player.addEventListener("ended", () => {
@@ -101,7 +102,7 @@ player.addEventListener("ended", () => {
 </script>
 
 <template>
-  <div id="root">
+  <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
     <div v-if="!mobile" class="left-scene">
       <div class="selected-track">
         <div v-if="!selectedTrack.title" class="welcome">
@@ -135,7 +136,7 @@ player.addEventListener("ended", () => {
         </div>
       </div>
     </div>
-    <div className="right-scene">
+    <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile }">
       <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
       <TrackList
         :tracks="tracksApi"
@@ -149,8 +150,16 @@ player.addEventListener("ended", () => {
 <style>
 #root {
   display: flex;
-  height: calc(100vh - 100px);
-  width: 800px;
+}
+
+.root-big-screen {
+  height: 550px;
+  width: 750px;
+}
+
+.root-mobile {
+  height: 550px;
+  width: 350px;
 }
 
 .welcome {
@@ -174,7 +183,6 @@ player.addEventListener("ended", () => {
 
 .left-scene {
   flex: 0 0 60%;
-  position: sticky;
   display: flex;
   flex-direction: column;
   border-right: solid 1px lightgray;
@@ -189,11 +197,19 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene {
-  flex: 0 0 40%;
   background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+.right-scene-big-screen {
+  flex: 0 0 40%;
+}
+
+.right-scene-mobile {
+  flex: 0 0 100%;
+}
+
 .track-list {
   column-count: 1;
   column-gap: 5px;
