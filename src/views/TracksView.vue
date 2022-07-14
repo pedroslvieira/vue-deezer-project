@@ -158,7 +158,7 @@ player.addEventListener("ended", () => {
 }
 
 .root-mobile {
-  height: 550px;
+  height: calc(100vh - 100px);
   width: 350px;
 }
 
