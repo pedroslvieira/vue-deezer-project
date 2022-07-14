@@ -7,11 +7,11 @@ const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks
 const tracksApi = ref([]);
 const selectedTrack = ref({});
 
+// Using top-level await
 // const response = await axios.get(apiUrl);
 // tracksApi.value = response.data.data;
 
 const componentKey = ref(0);
-
 const reloadComponent = () => {
   componentKey.value += 1;
 }
@@ -81,6 +81,20 @@ const updateTrack = (track) => {
   }
 };
 
+const windowWidth = ref();
+const mobile = ref(true);
+
+const checkScreen = () => {
+  windowWidth.value = window.innerWidth;
+  if (windowWidth.value < 750) {
+    mobile.value = true;
+    return;
+  }
+  mobile.value = false;
+  return;
+};
+
+window.addEventListener("resize", checkScreen);
 player.addEventListener("ended", () => {
   nextTrack(selectedTrack.value);
 });
@@ -88,7 +102,7 @@ player.addEventListener("ended", () => {
 
 <template>
   <div id="root">
-    <div class="left-scene">
+    <div v-if="!mobile" class="left-scene">
       <div class="selected-track">
         <div v-if="!selectedTrack.title" class="welcome">
           <h1 class="welcome-title">Welcome!</h1>
