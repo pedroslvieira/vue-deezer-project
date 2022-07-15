@@ -160,7 +160,7 @@ player.addEventListener("ended", () => {
         </div>
       </div>
     </transition>
-    <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile }">
+    <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile, 'right-scene-mobile-selected': mobile && selectedTrack.title  }">
       <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
       <TrackList
         :tracks="tracksApi"
@@ -178,7 +178,7 @@ player.addEventListener("ended", () => {
 
 .fade-enter-from {
   transform: translateY(100px);
-  opacity: 0;
+  opacity: 1;
 }
 
 .fade-enter-to {
@@ -198,7 +198,7 @@ player.addEventListener("ended", () => {
 }
 
 .root-mobile {
-  flex-direction: column-reverse;
+  flex-direction: column;
   height: calc(100vh - 100px);
   width: 350px;
   transition: 0.5s ease all;
@@ -244,8 +244,6 @@ player.addEventListener("ended", () => {
   background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 100%;
-  transition: 2s ease all;
 }
 
 .right-scene-big-screen {
@@ -253,6 +251,13 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene-mobile {
+  width: 350px;
+  flex: 0 0 100%;
+  transition: 1s 0.5s all ease-in-out;
+}
+
+.right-scene-mobile-selected {
+  flex: 0 0 85%;
   width: 350px;
 }
 
@@ -264,6 +269,9 @@ player.addEventListener("ended", () => {
   padding: 10px;
   align-items: center;
   width: 350px;
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
 }
 
 .track-mobile-cover {
