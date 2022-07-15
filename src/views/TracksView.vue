@@ -136,7 +136,7 @@ player.addEventListener("ended", () => {
         </div>
       </div>
     </div>
-    <transition :duration="{ enter: 10000, leave: 3500 }" name="fade">
+    <transition name="fade">
       <div class="player-mobile" v-if="mobile && selectedTrack.title">
         <div class="track-mobile-cover">
               <img class="mobile-cover" :src="selectedTrack.album.cover_small" />
@@ -172,15 +172,23 @@ player.addEventListener("ended", () => {
 </template>
 
 <style>
-.fade-enter-from,
-.fade-leave-to {
-  transform: translateY(300px);
-  opacity: 1;
+.fade-enter-active {
+  transition: 1s ease all;
+}
+
+.fade-enter-from {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.fade-enter-to {
+  transform: translate(0);
 }
 
 #root {
   display: flex;
   position: relative;
+  background-color: #fff;
 }
 
 .root-big-screen {
@@ -194,6 +202,8 @@ player.addEventListener("ended", () => {
   height: calc(100vh - 100px);
   width: 350px;
   transition: 0.5s ease all;
+  overflow: hidden;
+  align-items: flex-end;
 }
 
 .welcome {
@@ -234,6 +244,8 @@ player.addEventListener("ended", () => {
   background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 100%;
+  transition: 2s ease all;
 }
 
 .right-scene-big-screen {
@@ -241,21 +253,17 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene-mobile {
-  flex: 0 0 100%;
+  width: 350px;
 }
 
 .player-mobile {
   flex: 0 0 15%;
   background-color: rgba(255,255,255,1);
-  /* background-color: #3A4859; */
   border-top: solid 1px lightgray;
   display: flex;
   padding: 10px;
   align-items: center;
-  position: absolute;
-  bottom: 0;
-  z-index: 100;
-  width: 100%;
+  width: 350px;
 }
 
 .track-mobile-cover {
