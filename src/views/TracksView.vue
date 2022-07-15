@@ -172,6 +172,13 @@ player.addEventListener("ended", () => {
 </template>
 
 <style>
+@media (prefers-color-scheme: dark) {
+  .player-mobile{
+    border: solid 1px red;
+    background-color: #41dfff;
+  }
+}
+
 .fade-enter-active {
   transition: 1s ease all;
 }
