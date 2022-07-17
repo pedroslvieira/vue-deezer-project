@@ -268,7 +268,6 @@ player.addEventListener("ended", () => {
 }
 
 .left-scene {
-  /* flex: 0 0 60%; */
   width: 450px;
   display: flex;
   flex-direction: column;
@@ -354,6 +353,10 @@ player.addEventListener("ended", () => {
   width: 100%;
   margin: 5px;
   cursor: pointer;
+}
+
+.bg-track-list {
+  background-color: white;
 }
 
 #loading {
@@ -487,6 +490,18 @@ button:hover {
   .player-mobile {
     background-color: var(--vt-c-black);
     border-top: solid 1px #333434;
+  }
+
+  .form-div {
+    background-color: var(--vt-c-black);
+  }
+
+  .form-title {
+    color: var(--vt-c-text-dark-1);
+  }
+
+  .tracks-button {
+    background-color: #333434;
   }
 }
 </style>
