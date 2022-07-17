@@ -103,39 +103,41 @@ player.addEventListener("ended", () => {
 
 <template>
   <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
-    <div v-if="!mobile" class="left-scene">
-      <div class="selected-track">
-        <div v-if="!selectedTrack.title" class="welcome">
-          <h1 class="welcome-title">Welcome!</h1>
-          <p class="welcome-p">Choose a song on the list to start listening</p>
-        </div>
-        <div class="player" v-else>
-          <div class="cover-wrapper">
-            <img :src="selectedTrack.album.cover_medium" />
+    <transition name="slide-left">
+      <div v-if="!mobile" class="left-scene">
+        <div class="selected-track">
+          <div v-if="!selectedTrack.title" class="welcome">
+            <h1 class="welcome-title">Welcome!</h1>
+            <p class="welcome-p">Choose a song on the list to start listening</p>
           </div>
-          <div class="track-details">
-            <h2 class="track-title">
-              {{ selectedTrack.title }}
-            </h2>
-            <p class="artist">{{ selectedTrack.artist.name }}</p>
-          </div>
-          <div class="commands">
-            <button class="prev" @click="prevTrack(selectedTrack)">
-              <font-awesome-icon icon="step-backward" />
-            </button>
-            <button class="play" v-if="!isPlaying" @click="play">
-              <font-awesome-icon icon="play" />
-            </button>
-            <button class="pause" v-else @click="pause">
-              <font-awesome-icon icon="pause" />
-            </button>
-            <button class="next" @click="nextTrack(selectedTrack)">
-              <font-awesome-icon icon="step-forward" />
-            </button>
+          <div class="player" v-else>
+            <div class="cover-wrapper">
+              <img :src="selectedTrack.album.cover_medium" />
+            </div>
+            <div class="track-details">
+              <h2 class="track-title">
+                {{ selectedTrack.title }}
+              </h2>
+              <p class="artist">{{ selectedTrack.artist.name }}</p>
+            </div>
+            <div class="commands">
+              <button class="prev" @click="prevTrack(selectedTrack)">
+                <font-awesome-icon icon="step-backward" />
+              </button>
+              <button class="play" v-if="!isPlaying" @click="play">
+                <font-awesome-icon class="play-button" icon="play" />
+              </button>
+              <button class="pause" v-else @click="pause">
+                <font-awesome-icon icon="pause" />
+              </button>
+              <button class="next" @click="nextTrack(selectedTrack)">
+                <font-awesome-icon icon="step-forward" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
     <transition name="fade">
       <div class="player-mobile" v-if="mobile && selectedTrack.title">
         <div class="track-mobile-cover">
@@ -161,7 +163,7 @@ player.addEventListener("ended", () => {
       </div>
     </transition>
     <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile, 'right-scene-mobile-selected': mobile && selectedTrack.title  }">
-      <img id="loading" src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg" alt="">
+      <img id="loading" src="https://i.stack.imgur.com/kOnzy.gif" alt="">
       <TrackList
         :tracks="tracksApi"
         @track-selected="updateTrack"
@@ -172,17 +174,48 @@ player.addEventListener("ended", () => {
 </template>
 
 <style>
-@media (prefers-color-scheme: dark) {
-  .player-mobile{
-    border: solid 1px red;
-    background-color: #41dfff;
-  }
+/* Transition player-desktop */
+.slide-left-enter-active {
+  transition: 1s 0.1s ease all;
 }
 
+.slide-left-leave-active {
+  transition: 1s 0.2s ease all;
+}
+
+.slide-left-leave-to {
+  position: absolute;
+  left: 0;
+  opacity: 1;
+  width: 60%;
+  height: 100%;
+  /* z-index: -100; */
+}
+
+.slide-left-enter-from {
+  /* transform: translateX(200px); */
+}
+
+.slide-left-leave-from {
+  /* position: absolute;
+  width: 60%;
+  height: 100%; */
+}
+
+.slide-left-enter-to {
+  /* transform: translate(0); */
+}
+
+/* Transition player-mobile */
 .fade-enter-active {
-  transition: 1s ease all;
+  transition: 1s ease transform;
 }
 
+.fade-leave-active {
+  transition: 0.2s ease transform;
+}
+
+.fade-leave-to,
 .fade-enter-from {
   transform: translateY(100px);
   opacity: 1;
@@ -196,21 +229,23 @@ player.addEventListener("ended", () => {
   display: flex;
   position: relative;
   background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .root-big-screen {
   height: 550px;
   width: 750px;
-  transition: 0.5s ease all;
+  transition: 1s ease-in-out all;
 }
 
 .root-mobile {
   flex-direction: column;
   height: calc(100vh - 100px);
   width: 350px;
-  transition: 0.5s ease all;
   overflow: hidden;
   align-items: flex-end;
+  transition: 1s ease-in-out all;
 }
 
 .welcome {
@@ -233,14 +268,14 @@ player.addEventListener("ended", () => {
 }
 
 .left-scene {
-  flex: 0 0 60%;
+  /* flex: 0 0 60%; */
+  width: 450px;
   display: flex;
   flex-direction: column;
   border-right: solid 1px lightgray;
 }
 
 .selected-track {
-  background-color: white;
   text-align: center;
   display: flex;
   flex-grow: 1;
@@ -248,23 +283,26 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene {
-  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .right-scene-big-screen {
-  flex: 0 0 40%;
+  position: absolute;
+  right: 0;
+  width: 300px;
+  transition: 1s 0.2s all ease-in-out;
 }
 
 .right-scene-mobile {
   width: 350px;
-  flex: 0 0 100%;
-  transition: 1s 0.5s all ease-in-out;
+  height: 100%;
+  transition: 1s all ease-in-out;
 }
 
 .right-scene-mobile-selected {
-  flex: 0 0 85%;
+  /* flex: 0 0 85%; */
+  height: 85%;
   width: 350px;
 }
 
@@ -319,13 +357,10 @@ player.addEventListener("ended", () => {
 }
 
 #loading {
-  height: 100px;
+  height: 40px;
   position: absolute;
-  top: 40%;
-  left: 30%;
-}
-.bg-track-list {
-  background-color: white;
+  top: 45%;
+  left: 45%;
 }
 
 .player {
@@ -381,6 +416,10 @@ button:hover {
   margin-right: 20px;
 }
 
+.play-button {
+  transform: translate(2px, 0px);
+}
+
 .next,
 .prev {
   border: 0;
@@ -396,5 +435,58 @@ button:hover {
   color: #fff;
   transition: background-color .2s;
   position: relative;
+}
+
+@media (prefers-color-scheme: dark) {
+  .right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
+  .right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
+
+
+  .left-scene {
+    border-right: solid 1px #333434;
+  }
+
+  .playing{
+  background-color: #222526;
+  }
+
+  .list-element:hover {
+  background-color: #222526;
+  }
+
+  .artist,
+  .list-track-artist {
+    color: var(--vt-c-text-dark-2);
+  }
+
+  .track-title,
+  .mobile-play,
+  .selected-track,
+  .list-track-title {
+    color: var(--vt-c-text-dark-1);
+  }
+
+  .next,
+  .prev {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #181A1B;
+  }
+
+  .pause,
+  .play {
+    color: #181A1B;
+    background-color: white;
+    background-image: none;
+  }
+
+  .bg-track-list,
+  #root {
+    background-color: var(--vt-c-black);
+  }
+
+  .player-mobile {
+    background-color: var(--vt-c-black);
+    border-top: solid 1px #333434;
+  }
 }
 </style>
