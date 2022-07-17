@@ -176,49 +176,34 @@ player.addEventListener("ended", () => {
 <style>
 /* Transition player-desktop */
 .slide-left-enter-active {
-  transition: 1s 0.1s ease all;
+  transition: 1s 0.2s ease all;
 }
 
 .slide-left-leave-active {
   transition: 1s 0.2s ease all;
 }
 
-.slide-left-leave-to {
-  position: absolute;
-  left: 0;
-  opacity: 1;
-  width: 60%;
-  height: 100%;
-  /* z-index: -100; */
-}
-
 .slide-left-enter-from {
-  /* transform: translateX(200px); */
-}
-
-.slide-left-leave-from {
-  /* position: absolute;
-  width: 60%;
-  height: 100%; */
-}
-
-.slide-left-enter-to {
-  /* transform: translate(0); */
+  opacity: 0;
 }
 
 /* Transition player-mobile */
 .fade-enter-active {
-  transition: 1s ease transform;
+  transition: 1s 0.5s ease transform;
 }
 
 .fade-leave-active {
-  transition: 0.2s ease transform;
+  transition: 1s ease-in-out transform;
+  position: absolute;
+  bottom: 0;
+  right:0;
 }
 
 .fade-leave-to,
 .fade-enter-from {
   transform: translateY(100px);
   opacity: 1;
+  width: 300px;
 }
 
 .fade-enter-to {
@@ -268,7 +253,10 @@ player.addEventListener("ended", () => {
 }
 
 .left-scene {
+  position: absolute;
+  left: 0;
   width: 450px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   border-right: solid 1px lightgray;
@@ -290,13 +278,14 @@ player.addEventListener("ended", () => {
   position: absolute;
   right: 0;
   width: 300px;
-  transition: 1s 0.2s all ease-in-out;
+  height: 100%;
+  transition: 1s all ease-in-out;
 }
 
 .right-scene-mobile {
   width: 350px;
   height: 100%;
-  transition: 1s all ease-in-out;
+  transition: 1s 0.5s all ease-in-out;
 }
 
 .right-scene-mobile-selected {
@@ -361,9 +350,10 @@ player.addEventListener("ended", () => {
 
 #loading {
   height: 40px;
+  transform: translate(-50%, 50%);
   position: absolute;
-  top: 45%;
-  left: 45%;
+  bottom: 50%;
+  left: 50%;
 }
 
 .player {
@@ -443,7 +433,6 @@ button:hover {
 @media (prefers-color-scheme: dark) {
   .right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
   .right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
-
 
   .left-scene {
     border-right: solid 1px #333434;
