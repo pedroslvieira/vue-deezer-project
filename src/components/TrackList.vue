@@ -25,6 +25,6 @@ const emit = defineEmits(["trackSelected"]);
 
 <style>
 .playing{
-  background-color: #EDEDED;
+  background-color: var(--bg-playing);
 }
 </style>

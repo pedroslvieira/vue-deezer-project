@@ -220,7 +220,7 @@ player.addEventListener("ended", () => {
 #root {
   display: flex;
   position: relative;
-  background-color: #fff;
+  background-color: var(--bg-color-1);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -229,6 +229,7 @@ player.addEventListener("ended", () => {
   height: 550px;
   width: 750px;
   transition: 1s 0.5s ease-in-out all;
+  transition: 0s ease background-color;
 }
 
 .root-mobile {
@@ -250,6 +251,7 @@ player.addEventListener("ended", () => {
 
 .welcome-title {
   font-weight: 200;
+  color: var(--text-color-1);
 }
 
 .welcome-p {
@@ -257,6 +259,7 @@ player.addEventListener("ended", () => {
   font-weight: 300;
   margin-top: 15px;
   font-size: 16px;
+  color: var(--text-color-1);
 }
 
 .left-scene {
@@ -266,7 +269,7 @@ player.addEventListener("ended", () => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: solid 1px lightgray;
+  border-right: solid 1px var(--border-color);
 }
 
 .selected-track {
@@ -302,7 +305,7 @@ player.addEventListener("ended", () => {
 
 .player-mobile {
   flex: 0 0 15%;
-  background-color: rgba(255,255,255,1);
+  background-color: var(--bg-color-1);
   border-top: solid 1px lightgray;
   display: flex;
   padding: 10px;
@@ -333,7 +336,7 @@ player.addEventListener("ended", () => {
   justify-content: center;
   cursor: pointer;
   font-size: 30px;
-  color: #000;
+  color: var(--play-pause-commands);
   margin: 0;
 }
 
@@ -351,7 +354,7 @@ player.addEventListener("ended", () => {
 }
 
 .bg-track-list {
-  background-color: white;
+  background-color: var(--bg-color-1);
 }
 
 #loading {
@@ -375,13 +378,14 @@ player.addEventListener("ended", () => {
 }
 
 .track-title {
-  color: #53565a;
+  color: var(--text-color-1);
   font-size: medium;
   font-weight: 600;
 }
 
 .artist {
   text-align: center;
+  color: var(--text-color-2);
 }
 
 button {
@@ -403,14 +407,14 @@ button:hover {
 }
 .play,
 .pause {
-  background-image: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
+  background-image: var(--bg-image-play-pause-commands);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   justify-content: center;
   cursor: pointer;
   font-size: 25px;
-  color: #fff;
+  color: var(--play-pause-commands);
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -430,90 +434,14 @@ button:hover {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: rgba(0,0,0,.09);
-  color: #fff;
+  background-color: var(--bg-next-prev-commands);
+  color: var(--next-prev-commands);
   transition: background-color .2s;
   position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-  .right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
-  .right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
 
-  .left-scene {
-    border-right: solid 1px #333434;
-  }
+.right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
+.right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
 
-  .playing{
-  background-color: #222526;
-  }
-
-  .list-element:hover {
-  background-color: #222526;
-  }
-
-  .artist,
-  .list-track-artist {
-    color: var(--vt-c-text-dark-2);
-  }
-
-  .track-title,
-  .mobile-play,
-  .mobile-pause,
-  .selected-track,
-  .list-track-title {
-    color: var(--vt-c-text-dark-1);
-  }
-
-  .next,
-  .prev {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #181A1B;
-  }
-
-  .pause,
-  .play {
-    color: #181A1B;
-    background-color: white;
-    background-image: none;
-  }
-
-  .bg-track-list,
-  #root {
-    background-color: var(--vt-c-black);
-  }
-
-  .player-mobile {
-    background-color: var(--vt-c-black);
-    border-top: solid 1px #333434;
-  }
-}
-
-[data-theme="dark"]{
-  --bg-color-1: #181A1B;
-  --border-color: #333434;
-  --play-pause-commands: white;
-  --next-prev-commands: #181A1B;
-  --bg-next-prev-commands: rgba(255, 255, 255, 0.5);
-  --text-color-1: lightgrey;
-  --text-color-2: rgba(235, 235, 235, 0.64);
-  --bg-playing: #222526;
-  --list-hover: #222526;
-}
-
-[data-theme="light"]{
-  --bg-color-1: white;
-  --border-color: lightgray;
-  --play-pause-commands: black;
-  --next-prev-commands: white;
-  --bg-next-prev-commands: rgba(0,0,0,.09);
-  --text-color-1: #53565a;
-  --text-color-2: #53565a;
-  --bg-playing: ??;
-  --list-hover: ??;
-}
-
-#root {
-  background-color: var(--bg-test);
-}
 </style>

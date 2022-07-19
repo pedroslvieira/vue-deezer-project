@@ -37,12 +37,12 @@ const activate = () => {
   padding: 10px;
 }
 .list-element:hover {
-  background-color: #ededed;
+  background-color: var(--bg-playing);
   cursor: pointer;
 }
 
 .active {
-  background-color: lightgray;
+  background-color: var(--bg-playing);
 }
 
 .track-cover {
@@ -57,13 +57,14 @@ const activate = () => {
 }
 
 .list-track-title {
-  color: #53565a;
+  color: var(--text-color-1);
   font-size: medium;
   font-weight: 600;
   text-align: left;
 }
 
 .list-track-artist {
+  color: var(--text-color-1);
   font-weight: 400;
   text-align: left;
 }
