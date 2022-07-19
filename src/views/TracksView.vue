@@ -481,17 +481,5 @@ button:hover {
     background-color: var(--vt-c-black);
     border-top: solid 1px #333434;
   }
-
-  .form-div {
-    background-color: var(--vt-c-black);
-  }
-
-  .form-title {
-    color: var(--vt-c-text-dark-1);
-  }
-
-  .tracks-button {
-    background-color: #333434;
-  }
 }
 </style>

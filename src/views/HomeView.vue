@@ -83,7 +83,28 @@ h1 {
 }
 
 input {
-  /* margin-bottom: 20px; */
   height: 30px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form-div {
+    background-color: var(--vt-c-black);
+  }
+
+  .form-title {
+    color: var(--vt-c-text-dark-1);
+  }
+
+  .tracks-button {
+    background-color: #297A8F;
+    border-radius: 3px;
+  }
+
+  input {
+    background-color: #3B3B3B;
+    border: solid 1px transparent;
+    border-radius: 3px;
+  }
+
 }
 </style>
