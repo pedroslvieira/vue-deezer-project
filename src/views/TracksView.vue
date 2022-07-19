@@ -221,7 +221,7 @@ player.addEventListener("ended", () => {
 .root-big-screen {
   height: 550px;
   width: 750px;
-  transition: 1s ease-in-out all;
+  transition: 1s 0.5s ease-in-out all;
 }
 
 .root-mobile {
@@ -279,7 +279,7 @@ player.addEventListener("ended", () => {
   right: 0;
   width: 300px;
   height: 100%;
-  transition: 1s all ease-in-out;
+  transition: 1s 0.2s all ease-in-out;
 }
 
 .right-scene-mobile {
@@ -453,6 +453,7 @@ button:hover {
 
   .track-title,
   .mobile-play,
+  .mobile-pause,
   .selected-track,
   .list-track-title {
     color: var(--vt-c-text-dark-1);
