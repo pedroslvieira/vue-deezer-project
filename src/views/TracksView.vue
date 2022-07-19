@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import TrackList from "@/components/TrackList.vue";
+import { useDark, useToggle } from "@vueuse/core";
 
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
@@ -22,6 +23,11 @@ const loadTracks = async () => {
   reloadComponent();
 };
 loadTracks();
+
+const isDark = useDark();
+const toggleDark = () => {
+  document.documentElement.setAttribute("data-theme", "light");
+};
 
 const isPlaying = ref(false);
 const player = new Audio();
@@ -105,6 +111,7 @@ player.addEventListener("ended", () => {
   <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
     <transition name="slide-left">
       <div v-if="!mobile" class="left-scene">
+        <button class="dark-mode" @click="toggleDark()"> {{ isDark }}</button>
         <div class="selected-track">
           <div v-if="!selectedTrack.title" class="welcome">
             <h1 class="welcome-title">Welcome!</h1>
@@ -289,7 +296,6 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene-mobile-selected {
-  /* flex: 0 0 85%; */
   height: 85%;
   width: 350px;
 }
@@ -481,5 +487,33 @@ button:hover {
     background-color: var(--vt-c-black);
     border-top: solid 1px #333434;
   }
+}
+
+[data-theme="dark"]{
+  --bg-color-1: #181A1B;
+  --border-color: #333434;
+  --play-pause-commands: white;
+  --next-prev-commands: #181A1B;
+  --bg-next-prev-commands: rgba(255, 255, 255, 0.5);
+  --text-color-1: lightgrey;
+  --text-color-2: rgba(235, 235, 235, 0.64);
+  --bg-playing: #222526;
+  --list-hover: #222526;
+}
+
+[data-theme="light"]{
+  --bg-color-1: white;
+  --border-color: lightgray;
+  --play-pause-commands: black;
+  --next-prev-commands: white;
+  --bg-next-prev-commands: rgba(0,0,0,.09);
+  --text-color-1: #53565a;
+  --text-color-2: #53565a;
+  --bg-playing: ??;
+  --list-hover: ??;
+}
+
+#root {
+  background-color: var(--bg-test);
 }
 </style>
