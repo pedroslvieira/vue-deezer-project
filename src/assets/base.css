@@ -5,7 +5,7 @@
 [data-theme="dark"]{
   --bg-color-1: #181A1B;
   --border-color: #333434;
-  --play-pause-commands: white;
+  --play-pause-commands: black;
   --bg-play-pause-commands: white;
   --bg--image-play-pause-commands: none;
   --next-prev-commands: #181A1B;
@@ -13,13 +13,13 @@
   --text-color-1: lightgrey;
   --text-color-2: rgba(235, 235, 235, 0.64);
   --bg-playing: #222526;
-  --list-hover: #222526;
+  --theme-color: white;
 }
 
 [data-theme="light"]{
   --bg-color-1: white;
   --border-color: lightgray;
-  --play-pause-commands: black;
+  --play-pause-commands: white;
   --bg-play-pause-commands: transparent;
   --bg-image-play-pause-commands: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
   --next-prev-commands: white;
@@ -27,7 +27,7 @@
   --text-color-1: #53565a;
   --text-color-2: #53565a;
   --bg-playing: #EDEDED;
-  --list-hover: ??;
+  --theme-color: black;
 }
 
 *,

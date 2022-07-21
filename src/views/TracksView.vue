@@ -24,12 +24,14 @@ const loadTracks = async () => {
 };
 loadTracks();
 
-const isDark = useDark();
+const isDark = ref(true);
 const toggleDark = () => {
   if (document.documentElement.getAttribute("data-theme") === "dark") {
     document.documentElement.setAttribute("data-theme", "light");
+    isDark.value = false;
   } else {
     document.documentElement.setAttribute("data-theme", "dark");
+    isDark.value = true;
   }
 };
 
@@ -105,6 +107,10 @@ const checkScreen = () => {
 };
 checkScreen();
 
+const toggleMobile = () => {
+  mobile.value = !mobile.value;
+};
+
 window.addEventListener("resize", checkScreen);
 player.addEventListener("ended", () => {
   nextTrack(selectedTrack.value);
@@ -115,7 +121,16 @@ player.addEventListener("ended", () => {
   <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
     <transition name="slide-left">
       <div v-if="!mobile" class="left-scene">
-        <button class="dark-mode" @click="toggleDark()"> {{ isDark }}</button>
+        <div class="buttons">
+          <button class="data-theme" @click="toggleDark()">
+              <font-awesome-icon v-if="!isDark" icon="moon" />
+              <font-awesome-icon v-if="isDark" icon="sun" />
+          </button>
+          <button class="screen-format" @click="toggleMobile()">
+            <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
+            <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
+          </button>
+        </div>
         <div class="selected-track">
           <div v-if="!selectedTrack.title" class="welcome">
             <h1 class="welcome-title">Welcome!</h1>
@@ -175,12 +190,24 @@ player.addEventListener("ended", () => {
     </transition>
     <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile, 'right-scene-mobile-selected': mobile && selectedTrack.title  }">
       <img id="loading" src="https://i.stack.imgur.com/kOnzy.gif" alt="">
+      <transition>
+        <div v-if="mobile" class="buttons-mobile">
+          <button class="data-theme" @click="toggleDark()">
+              <font-awesome-icon v-if="!isDark" icon="moon" />
+              <font-awesome-icon v-if="isDark" icon="sun" />
+          </button>
+          <button class="screen-format" @click="toggleMobile()">
+            <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
+            <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
+          </button>
+        </div>
+      </transition>
       <TrackList
         :tracks="tracksApi"
         @track-selected="updateTrack"
         :key="componentKey"
       />
-    </div>
+  </div>
   </div>
 </template>
 
@@ -233,7 +260,7 @@ player.addEventListener("ended", () => {
   height: 550px;
   width: 750px;
   transition: 1s 0.5s ease-in-out all;
-  transition: 0s ease background-color;
+  /* transition: 0s ease background-color; */
 }
 
 .root-mobile {
@@ -276,6 +303,23 @@ player.addEventListener("ended", () => {
   border-right: solid 1px var(--border-color);
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.screen-format,
+.data-theme {
+  margin-top: 10px;
+  border: solid 1px var(--theme-color);
+  color: var(--theme-color);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+}
+
 .selected-track {
   text-align: center;
   display: flex;
@@ -305,6 +349,13 @@ player.addEventListener("ended", () => {
 .right-scene-mobile-selected {
   height: 85%;
   width: 350px;
+}
+
+.buttons-mobile {
+  background-color: var(--bg-color-1);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .player-mobile {
@@ -412,13 +463,14 @@ button:hover {
 .play,
 .pause {
   background-image: var(--bg-image-play-pause-commands);
+  background-color: var(--bg-play-pause-commands);
+  color: var(--play-pause-commands);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   justify-content: center;
   cursor: pointer;
   font-size: 25px;
-  color: var(--play-pause-commands);
   margin-left: 20px;
   margin-right: 20px;
 }
