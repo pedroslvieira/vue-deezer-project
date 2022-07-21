@@ -26,7 +26,11 @@ loadTracks();
 
 const isDark = useDark();
 const toggleDark = () => {
-  document.documentElement.setAttribute("data-theme", "light");
+  if (document.documentElement.getAttribute("data-theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "light");
+  } else {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
 };
 
 const isPlaying = ref(false);
