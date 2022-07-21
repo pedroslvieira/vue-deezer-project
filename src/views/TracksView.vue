@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import TrackList from "@/components/TrackList.vue";
+import { useDark, useToggle } from "@vueuse/core";
 
 const apiUrl = "https://pedroslvieira-deezer-backend.herokuapp.com/api/v1/tracks";
 const tracksApi = ref([]);
@@ -22,6 +23,17 @@ const loadTracks = async () => {
   reloadComponent();
 };
 loadTracks();
+
+const isDark = ref(true);
+const toggleDark = () => {
+  if (document.documentElement.getAttribute("data-theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "light");
+    isDark.value = false;
+  } else {
+    document.documentElement.setAttribute("data-theme", "dark");
+    isDark.value = true;
+  }
+};
 
 const isPlaying = ref(false);
 const player = new Audio();
@@ -95,6 +107,10 @@ const checkScreen = () => {
 };
 checkScreen();
 
+const toggleMobile = () => {
+  mobile.value = !mobile.value;
+};
+
 window.addEventListener("resize", checkScreen);
 player.addEventListener("ended", () => {
   nextTrack(selectedTrack.value);
@@ -102,6 +118,22 @@ player.addEventListener("ended", () => {
 </script>
 
 <template>
+    <div class="app-header">
+      <div class="header-text">
+        <font-awesome-icon icon="music" />
+        <p class="app-title" >Global Top 10 Songs Today</p>
+      </div>
+      <div class="buttons">
+        <button alt="portrait" class="data-theme" @click="toggleDark()">
+            <font-awesome-icon v-if="!isDark" icon="moon" />
+            <font-awesome-icon v-if="isDark" icon="sun" />
+        </button>
+        <button v-if="windowWidth > 800" class="screen-format" @click="toggleMobile()">
+          <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
+          <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
+        </button>
+      </div>
+    </div>
   <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
     <transition name="slide-left">
       <div v-if="!mobile" class="left-scene">
@@ -169,7 +201,7 @@ player.addEventListener("ended", () => {
         @track-selected="updateTrack"
         :key="componentKey"
       />
-    </div>
+  </div>
   </div>
 </template>
 
@@ -210,11 +242,13 @@ player.addEventListener("ended", () => {
   transform: translate(0);
 }
 
+#app {
+  background-color: var(--bg-color-1);
+  border-radius: 3px;
+}
 #root {
   display: flex;
   position: relative;
-  background-color: #fff;
-  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -243,6 +277,7 @@ player.addEventListener("ended", () => {
 
 .welcome-title {
   font-weight: 200;
+  color: var(--text-color-1);
 }
 
 .welcome-p {
@@ -250,6 +285,7 @@ player.addEventListener("ended", () => {
   font-weight: 300;
   margin-top: 15px;
   font-size: 16px;
+  color: var(--text-color-1);
 }
 
 .left-scene {
@@ -259,7 +295,45 @@ player.addEventListener("ended", () => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: solid 1px lightgray;
+  border-right: solid 1px var(--border-color);
+}
+
+.app-header {
+  display: flex;
+  border-bottom: solid 1px var(--border-color);
+  justify-content: space-between;
+  color: var(--text-color-1);
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-right: 25px;
+}
+
+.header-text{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 25px;
+}
+
+.app-title {
+  color: var(--text-color-1);
+  font-weight: 600;
+}
+
+.screen-format,
+.data-theme {
+  border: solid 0.5px var(--text-color-1);
+  color: var(--text-color-1);
+  border-radius: 25px;
+  width: 25px;
+  height: 25px;
+  padding: 5px 5px;
 }
 
 .selected-track {
@@ -289,15 +363,14 @@ player.addEventListener("ended", () => {
 }
 
 .right-scene-mobile-selected {
-  /* flex: 0 0 85%; */
   height: 85%;
   width: 350px;
 }
 
 .player-mobile {
   flex: 0 0 15%;
-  background-color: rgba(255,255,255,1);
-  border-top: solid 1px lightgray;
+  background-color: var(--bg-color-1);
+  border-top: solid 1px var(--border-color);
   display: flex;
   padding: 10px;
   align-items: center;
@@ -305,6 +378,8 @@ player.addEventListener("ended", () => {
   position: absolute;
   z-index: 100;
   bottom: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 .track-mobile-cover {
@@ -327,10 +402,9 @@ player.addEventListener("ended", () => {
   justify-content: center;
   cursor: pointer;
   font-size: 30px;
-  color: #000;
+  color: var(--mobile-play-pause-commands);
   margin: 0;
 }
-
 
 .track-list {
   column-count: 1;
@@ -345,7 +419,9 @@ player.addEventListener("ended", () => {
 }
 
 .bg-track-list {
-  background-color: white;
+  background-color: var(--bg-color-1);
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 #loading {
@@ -369,13 +445,14 @@ player.addEventListener("ended", () => {
 }
 
 .track-title {
-  color: #53565a;
+  color: var(--text-color-1);
   font-size: medium;
   font-weight: 600;
 }
 
 .artist {
   text-align: center;
+  color: var(--text-color-2);
 }
 
 button {
@@ -397,14 +474,15 @@ button:hover {
 }
 .play,
 .pause {
-  background-image: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
+  background-image: var(--bg-image-play-pause-commands);
+  background-color: var(--bg-play-pause-commands);
+  color: var(--play-pause-commands);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   justify-content: center;
   cursor: pointer;
   font-size: 25px;
-  color: #fff;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -424,62 +502,14 @@ button:hover {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: rgba(0,0,0,.09);
-  color: #fff;
+  background-color: var(--bg-next-prev-commands);
+  color: var(--next-prev-commands);
   transition: background-color .2s;
   position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-  .right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
-  .right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
 
-  .left-scene {
-    border-right: solid 1px #333434;
-  }
+.right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: var(--scroll-bg); }
+.right-scene::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
 
-  .playing{
-  background-color: #222526;
-  }
-
-  .list-element:hover {
-  background-color: #222526;
-  }
-
-  .artist,
-  .list-track-artist {
-    color: var(--vt-c-text-dark-2);
-  }
-
-  .track-title,
-  .mobile-play,
-  .mobile-pause,
-  .selected-track,
-  .list-track-title {
-    color: var(--vt-c-text-dark-1);
-  }
-
-  .next,
-  .prev {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #181A1B;
-  }
-
-  .pause,
-  .play {
-    color: #181A1B;
-    background-color: white;
-    background-image: none;
-  }
-
-  .bg-track-list,
-  #root {
-    background-color: var(--vt-c-black);
-  }
-
-  .player-mobile {
-    background-color: var(--vt-c-black);
-    border-top: solid 1px #333434;
-  }
-}
 </style>

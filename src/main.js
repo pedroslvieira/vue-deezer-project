@@ -6,6 +6,10 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faPause } from "@fortawesome/free-solid-svg-icons";
 import { faStepBackward } from "@fortawesome/free-solid-svg-icons";
 import { faStepForward } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
+import { faMobileScreen } from "@fortawesome/free-solid-svg-icons";
+import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const app = createApp(App);
@@ -16,4 +20,4 @@ app.use(router);
 
 app.mount("#app");
 
-library.add([faPlay, faStepBackward, faStepForward, faPause]);
+library.add([faPlay, faStepBackward, faStepForward, faPause, faMoon, faSun, faMobileScreen, faMusic]);
