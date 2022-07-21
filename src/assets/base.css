@@ -8,12 +8,15 @@
   --play-pause-commands: black;
   --bg-play-pause-commands: white;
   --bg--image-play-pause-commands: none;
+  --mobile-play-pause-commands: white;
   --next-prev-commands: #181A1B;
   --bg-next-prev-commands: rgba(255, 255, 255, 0.5);
   --text-color-1: lightgrey;
   --text-color-2: rgba(235, 235, 235, 0.64);
   --bg-playing: #222526;
   --theme-color: white;
+  --scroll-bg: #2B2B2B;
+  --scroll-thumb: #6B6B6B;
 }
 
 [data-theme="light"]{
@@ -22,12 +25,15 @@
   --play-pause-commands: white;
   --bg-play-pause-commands: transparent;
   --bg-image-play-pause-commands: linear-gradient(to right top,#d16ba5,#c777b9,#ba83ca,#aa8fd8,#9a9ae1,#8aa7ec,#79b3f4,#69bff8,#52cffe,#41dfff,#46eefa,#5ffbf1);
+  --mobile-play-pause-commands: black;
   --next-prev-commands: white;
   --bg-next-prev-commands: rgba(0,0,0,.09);
   --text-color-1: #53565a;
   --text-color-2: #53565a;
   --bg-playing: #EDEDED;
   --theme-color: black;
+  --scroll-bg: lightgray;
+  --scroll-thumb: white;
 }
 
 *,

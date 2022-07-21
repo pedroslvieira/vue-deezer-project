@@ -118,19 +118,25 @@ player.addEventListener("ended", () => {
 </script>
 
 <template>
+    <div class="app-header">
+      <div class="header-text">
+        <font-awesome-icon icon="music" />
+        <p class="app-title" >Global Top 10 Songs Today</p>
+      </div>
+      <div class="buttons">
+        <button alt="portrait" class="data-theme" @click="toggleDark()">
+            <font-awesome-icon v-if="!isDark" icon="moon" />
+            <font-awesome-icon v-if="isDark" icon="sun" />
+        </button>
+        <button v-if="windowWidth > 800" class="screen-format" @click="toggleMobile()">
+          <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
+          <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
+        </button>
+      </div>
+    </div>
   <div id="root" :class="{ 'root-big-screen': !mobile, 'root-mobile': mobile }">
     <transition name="slide-left">
       <div v-if="!mobile" class="left-scene">
-        <div class="buttons">
-          <button class="data-theme" @click="toggleDark()">
-              <font-awesome-icon v-if="!isDark" icon="moon" />
-              <font-awesome-icon v-if="isDark" icon="sun" />
-          </button>
-          <button class="screen-format" @click="toggleMobile()">
-            <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
-            <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
-          </button>
-        </div>
         <div class="selected-track">
           <div v-if="!selectedTrack.title" class="welcome">
             <h1 class="welcome-title">Welcome!</h1>
@@ -190,18 +196,6 @@ player.addEventListener("ended", () => {
     </transition>
     <div class="right-scene" :class="{ 'right-scene-big-screen': !mobile, 'right-scene-mobile': mobile, 'right-scene-mobile-selected': mobile && selectedTrack.title  }">
       <img id="loading" src="https://i.stack.imgur.com/kOnzy.gif" alt="">
-      <transition>
-        <div v-if="mobile" class="buttons-mobile">
-          <button class="data-theme" @click="toggleDark()">
-              <font-awesome-icon v-if="!isDark" icon="moon" />
-              <font-awesome-icon v-if="isDark" icon="sun" />
-          </button>
-          <button class="screen-format" @click="toggleMobile()">
-            <font-awesome-icon v-if="!mobile" icon="mobile-screen"  />
-            <font-awesome-icon v-if="mobile" icon="mobile-screen" rotation="90" />
-          </button>
-        </div>
-      </transition>
       <TrackList
         :tracks="tracksApi"
         @track-selected="updateTrack"
@@ -248,11 +242,13 @@ player.addEventListener("ended", () => {
   transform: translate(0);
 }
 
+#app {
+  background-color: var(--bg-color-1);
+  border-radius: 3px;
+}
 #root {
   display: flex;
   position: relative;
-  background-color: var(--bg-color-1);
-  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -260,7 +256,6 @@ player.addEventListener("ended", () => {
   height: 550px;
   width: 750px;
   transition: 1s 0.5s ease-in-out all;
-  /* transition: 0s ease background-color; */
 }
 
 .root-mobile {
@@ -303,21 +298,42 @@ player.addEventListener("ended", () => {
   border-right: solid 1px var(--border-color);
 }
 
+.app-header {
+  display: flex;
+  border-bottom: solid 1px var(--border-color);
+  justify-content: space-between;
+  color: var(--text-color-1);
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+}
+
 .buttons {
   display: flex;
-  justify-content: center;
   gap: 10px;
+  margin-right: 25px;
+}
+
+.header-text{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 25px;
+}
+
+.app-title {
+  color: var(--text-color-1);
+  font-weight: 600;
 }
 
 .screen-format,
 .data-theme {
-  margin-top: 10px;
-  border: solid 1px var(--theme-color);
-  color: var(--theme-color);
-  border-radius: 50%;
+  border: solid 0.5px var(--text-color-1);
+  color: var(--text-color-1);
+  border-radius: 25px;
   width: 25px;
   height: 25px;
-  padding: 5px;
+  padding: 5px 5px;
 }
 
 .selected-track {
@@ -351,17 +367,10 @@ player.addEventListener("ended", () => {
   width: 350px;
 }
 
-.buttons-mobile {
-  background-color: var(--bg-color-1);
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
 .player-mobile {
   flex: 0 0 15%;
   background-color: var(--bg-color-1);
-  border-top: solid 1px lightgray;
+  border-top: solid 1px var(--border-color);
   display: flex;
   padding: 10px;
   align-items: center;
@@ -369,6 +378,8 @@ player.addEventListener("ended", () => {
   position: absolute;
   z-index: 100;
   bottom: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 .track-mobile-cover {
@@ -391,10 +402,9 @@ player.addEventListener("ended", () => {
   justify-content: center;
   cursor: pointer;
   font-size: 30px;
-  color: var(--play-pause-commands);
+  color: var(--mobile-play-pause-commands);
   margin: 0;
 }
-
 
 .track-list {
   column-count: 1;
@@ -410,6 +420,8 @@ player.addEventListener("ended", () => {
 
 .bg-track-list {
   background-color: var(--bg-color-1);
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 #loading {
@@ -497,7 +509,7 @@ button:hover {
 }
 
 
-.right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: #2B2B2B; }
-.right-scene::-webkit-scrollbar-thumb { background: #6B6B6B; border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
+.right-scene::-webkit-scrollbar { width: 10px; height: 100%; background-color: var(--scroll-bg); }
+.right-scene::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border: solid 2px transparent; background-clip: content-box; border-radius: 9px; }
 
 </style>
