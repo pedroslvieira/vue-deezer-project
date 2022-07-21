@@ -25,16 +25,6 @@ header {
   max-height: 100vh;
 }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease-out;
-}
-
 a {
   text-decoration: none;
 }
