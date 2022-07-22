@@ -242,11 +242,10 @@ player.addEventListener("ended", () => {
   transform: translate(0);
 }
 
-#app {
-  background-color: var(--bg-color-1);
-  border-radius: 3px;
-}
 #root {
+  background-color: var(--bg-color-1);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -255,7 +254,7 @@ player.addEventListener("ended", () => {
 .root-big-screen {
   height: 550px;
   width: 750px;
-  transition: 1s 0.5s ease-in-out all;
+  transition: 1s 0.5s ease-in-out, background-color 0s linear;
 }
 
 .root-mobile {
@@ -299,6 +298,9 @@ player.addEventListener("ended", () => {
 }
 
 .app-header {
+  background-color: var(--bg-color-1);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   display: flex;
   border-bottom: solid 1px var(--border-color);
   justify-content: space-between;

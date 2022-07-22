@@ -16,6 +16,17 @@ import { RouterView } from "vue-router";
 
 <style>
 @import "@/assets/base.css";
+
+/* .app-fade-enter-from,
+.app-fade-leave-to {
+  opacity: 0;
+}
+
+.app-fade-enter-active,
+.app-fade-leave-active {
+  transition: opacity 0.5s ease-out;
+} */
+
 #app {
   max-width: 1280px;
 }
