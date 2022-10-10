@@ -1,0 +1,22 @@
+{
+    "short_name": "Global Top 10",
+    "name": "Global Top 10 Songs Today",
+    "icons": [
+        {
+        "src": "src/assets/logo192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+        },
+        {
+        "src": "src/assets/logo512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+        }
+    ],
+    "start_url": "https://vue-deezer-v2.herokuapp.com/",
+    "background_color": "#3367D6",
+    "display": "fullscreen",
+    "scope": "https://vue-deezer-v2.herokuapp.com/",
+    "theme_color": "#3367D6",
+    "description": "Offer users the top 10 songs on the planet today"
+    }
