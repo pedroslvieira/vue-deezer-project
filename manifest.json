@@ -3,12 +3,12 @@
     "name": "Global Top 10 Songs Today",
     "icons": [
         {
-        "src": "/src/assets/logo192.png",
+        "src": "./src/assets/logo192.png",
         "type": "image/png",
         "sizes": "192x192"
         },
         {
-        "src": "/src/assets/logo512.png",
+        "src": "./src/assets/logo512.png",
         "type": "image/png",
         "sizes": "512x512"
         }
