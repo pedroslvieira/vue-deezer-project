@@ -11,6 +11,12 @@
             "src": "https://vue-deezer-v2.herokuapp.com/logo512.png",
             "type": "image/png",
             "sizes": "512x512"
+        },
+        {
+            "src": "https://vue-deezer-v2.herokuapp.com/maskable192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
         }
     ],
     "start_url": "https://vue-deezer-v2.herokuapp.com/",
