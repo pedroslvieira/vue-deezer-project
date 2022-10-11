@@ -21,7 +21,7 @@
     ],
     "start_url": "https://vue-deezer-v2.herokuapp.com/",
     "background_color": "#3367D6",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "https://vue-deezer-v2.herokuapp.com/",
     "theme_color": "#3367D6",
     "description": "Offer users the top 10 songs on the planet today"
