@@ -260,6 +260,7 @@ player.addEventListener("ended", () => {
   background-color: var(--bg-color-1);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  max-height: 700px;
   display: flex;
   position: relative;
   overflow: hidden;
